@@ -1,0 +1,17 @@
+site_name: R15 Library Docs
+site_description: Documentation for R15 Library
+site_url: https://r15ofc.github.io/
+theme:
+  name: readthedocs
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Addon Quickstart: addon-quickstart.md
+  - Active Tick Toolkit: active-tick-toolkit.md
+  - Animation API: animation-api.md
+  - Create Compat: create-compat.md
+  - Create Toolkit: create-toolkit.md
+  - Copycats Plus: copycats-plus.md
+  - CC Peripherals: cc-peripherals.md
+  - Runtime Tools: runtime-tools.md
+  - Platform Targets: platform-targets.md

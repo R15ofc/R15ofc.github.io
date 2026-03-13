@@ -1,0 +1,58 @@
+allprojects {
+    group = 'io.r15.library'
+    version = findProperty('mod_version') ?: '0.1.0'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://libraries.minecraft.net' }
+        maven { url = 'https://maven.neoforged.net/releases' }
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = 'https://maven.createmod.net' }
+        maven { url = 'https://maven.tterrag.com' }
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
+    tasks.withType(Jar).configureEach {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+}
+
+tasks.register('buildForgeFabric120x') {
+    group = 'build'
+    description = 'Build Forge/Fabric 1.20x line from available modules.'
+    dependsOn ':forge-1_20_1:build', ':forge-1_20_6:build', ':fabric-1_20_1:build'
+}
+
+tasks.register('buildNeoForgeForgeFabricQuilt120x') {
+    group = 'build'
+    description = 'Build NeoForge/Forge/Fabric 1.20x modules. Quilt 1.20x is tracked as target line.'
+    dependsOn 'buildForgeFabric120x', ':neoforge-1_21_1:build'
+    doLast {
+        logger.lifecycle('Quilt 1.20x target is declared in matrix; add dedicated module when needed.')
+    }
+}
+
+tasks.register('buildQuilt120x') {
+    group = 'build'
+    description = 'Quilt 1.20x target placeholder task.'
+    doLast {
+        logger.lifecycle('No dedicated Quilt 1.20x module is wired yet in this repository.')
+    }
+}
+
+tasks.register('buildAllExceptNeoForge119x') {
+    group = 'build'
+    description = 'Forge/Fabric/Quilt 1.19x target placeholder task.'
+    doLast {
+        logger.lifecycle('No dedicated 1.19x loader modules are wired yet in this repository.')
+    }
+}
